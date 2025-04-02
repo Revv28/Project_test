@@ -1,24 +1,47 @@
 {
   "xsappname": "project_test",
-  "tenant-mode": "dedicated",
-  "scopes": [
+  "tenant-mode": "dedicated",  
+   "scopes": [
       {
-          "name": "$XSAPPNAME.Admin",
-          "description": "Admin"
-      }
-  ],
-  "attributes": [],
-  "role-templates": [
+        "name": "$XSAPPNAME.Admin",
+        "description": "Admin scope"
+      },
       {
-          "name": "Admin",
-          "description": "generated",
-          "scope-references": [
-              "$XSAPPNAME.Admin"
-          ],
-          "attribute-references": []
+        "name": "$XSAPPNAME.Test",
+        "description": "Test scope"
       }
-  ],
-  "oauth2-configuration": {
+    ],
+    "attributes":[
+      { 
+        "name" : "country_code", 
+        "description" : "Country Code", 
+        "valueType" : "string" }
+    ],
+    "role-templates": [
+      {
+        "name": "Admin",
+        "description": "Admin role",
+        "scope-references": [
+          "$XSAPPNAME.Admin","$XSAPPNAME.Test"
+        ]
+      },
+      {
+        "name": "Test",
+        "description": "Test role",
+        "scope-references": [
+          "$XSAPPNAME.Test"
+        ],
+        "attribute-references":[
+          {
+            "name":"country_code",
+            "default-values" : [
+              "DE", "SA"
+            ]
+          }
+        ]
+      }
+    ],
+    "oauth2-configuration": {
       "credential-types": [
           "binding-secret",
           "x509"
@@ -28,3 +51,4 @@
       ]
   }
   }
+  
